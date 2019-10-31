@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	{% load staticfiles %}
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}" />
-	<title>Home page</title>
-</head>
-<body>
-<div class="container">
-	<div class="row">
-		<div class="col-4">
-			<ul>
-				<li><a  href=" {%  url 'blog:index'%}">Home</a></li>
-				<li>All blogs</li>
-				<li>All bloggers</li>
-			</ul>
-		</div>
-		<div class="col-4"><p>Welcome to blog!</p></div>
-		<div class="col-4"></div>
-	</div>
-</div>
-</body>
-</html>
+{% extends "base_generic.html" %}
+
+{% block content %}
+<p>block content</p>
+{% endblock %}
+
