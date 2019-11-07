@@ -10,17 +10,18 @@
 <body>
 <div class="container">
 	<div class="row">
-		<div class="col-4">
+		<div class="col-3">
 			<ul>
 				<li><a  href=" {%  url 'blog:index'%}">Home</a></li>
-				<li>All blogs</li>
-				<li>All bloggers</li>
+				<li><a href="{% url 'blog:blogs'%}">All blogs</a></li>
+				<li><a href="{% url 'blog:bloggers' %}">All bloggers</a></li>
 			</ul>
 		</div>
-		<div class="col-4">
-			{% block content %}{% endblock %}
+		<div class="col-6">
+			{% block content %}
+			{% endblock %}
 		</div>
-		<div class="col-4"></div>
+		<div class="col-3"></div>
 	</div>
 </div>
 </body>

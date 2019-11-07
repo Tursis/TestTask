@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>All blogs</title>
-</head>
-<body>
+{% extends "base_generic.html" %}
+{% block content %}
 
-</body>
-</html>
+	{% if blog_list %}
+	<ul>
+		{% for blog in blog_list %}
+			<li><a href={{ blog.get_absolute_url }}>{{ blog.name }} </a> {{ blog.pub_date }} —
+				<a href="{% url 'blog:index'%}"> {{blog.author }}</a></li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock %}

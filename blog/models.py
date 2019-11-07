@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 
 # Create your models here.
@@ -8,6 +8,10 @@ from django.contrib.auth.models import User
 class BlogAuthor(models.Model):
 	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 	bio = models.TextField(max_length=400, help_text="Enter your bio details here.")
+
+
+	def get_absolute_url(self):
+		return reverse('blog:bloggers', args=[str(self.id)])
 
 	def __str__(self):
 		return self.user.username
@@ -21,3 +25,6 @@ class Blog(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def get_absolute_url(self):
+		return reverse('blog:blog-detail', args=[str(self.id)])

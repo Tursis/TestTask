@@ -8,3 +8,16 @@ def index(request):
 
 	return render(request, 'index.html')
 
+class BlogListView(generic.ListView):
+	template_name = 'blog/blog_list.html'
+	model = Blog
+
+class BloggerListView(generic.ListView):
+	template_name = 'blog/blogauthor_list.html'
+	model = BlogAuthor
+
+
+
+class BlogDetailView(generic.DetailView):
+	model = Blog
+
