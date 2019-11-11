@@ -8,10 +8,10 @@ from django.urls import reverse
 class BlogAuthor(models.Model):
 	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 	bio = models.TextField(max_length=400, help_text="Enter your bio details here.")
-
+	
 
 	def get_absolute_url(self):
-		return reverse('blog:bloggers', args=[str(self.id)])
+		return reverse('blog:bloggers-detail', args=[str(self.id)])
 
 	def __str__(self):
 		return self.user.username

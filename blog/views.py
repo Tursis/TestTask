@@ -21,3 +21,7 @@ class BloggerListView(generic.ListView):
 class BlogDetailView(generic.DetailView):
 	model = Blog
 
+class BloggersDetailView(generic.DetailView):
+	model = BlogAuthor
+	slug_field = 'user'
+
