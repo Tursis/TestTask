@@ -21,7 +21,11 @@ class BloggerListView(generic.ListView):
 class BlogDetailView(generic.DetailView):
 	model = Blog
 
-class BloggersDetailView(generic.DetailView):
-	model = BlogAuthor
-	slug_field = 'user'
+class BloggersDetailView(generic.ListView):
+	template_name = 'blog/blogauthor_detail.html'
+	model = Blog
 
+	def get_context_data(self,  **kwargs):
+		context = super(BloggersDetailView, self).get_context_data(**kwargs)
+		context['blogger'] = get_object_or_404(BlogAuthor, pk = self.kwargs['pk'])
+		return  context
