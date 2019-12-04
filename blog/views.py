@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from  .models import BlogAuthor, Blog
+from .models import BlogAuthor, Blog
 # Create your views here.
 def index(request):
 
@@ -24,6 +24,14 @@ class BlogDetailView(generic.DetailView):
 class BloggersDetailView(generic.ListView):
 	template_name = 'blog/blogauthor_detail.html'
 	model = Blog
+
+	def get_queryset(self):
+		"""
+		Return list of Blog objects created by BlogAuthor (author id specified in URL)
+		"""
+		id = self.kwargs['pk']
+		target_author = get_object_or_404(BlogAuthor, pk=id)
+		return Blog.objects.filter(author=target_author)
 
 	def get_context_data(self,  **kwargs):
 		context = super(BloggersDetailView, self).get_context_data(**kwargs)
