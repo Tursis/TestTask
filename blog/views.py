@@ -2,7 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import BlogAuthor, Blog
+from .models import BlogAuthor, Blog, BlogComment
+from django.views.generic.edit import CreateView
 # Create your views here.
 def index(request):
 
@@ -37,3 +38,15 @@ class BloggersDetailView(generic.ListView):
 		context = super(BloggersDetailView, self).get_context_data(**kwargs)
 		context['blogger'] = get_object_or_404(BlogAuthor, pk = self.kwargs['pk'])
 		return  context
+
+class BlogCommenetCreate(CreateView):
+	model = BlogComment
+
+	def get_context_data(self, **kwargs):
+		context = super(BlogCommenetCreate, self).get_context_data(**kwargs)
+		context['blogcomment'] = get_object_or_404(Blog, pk = self.kwargs['pk'])
+
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		form.instance.blog = get_object_or_404(Blog, pk = self.kwargs['pk'])
+		return super(BlogCommenetCreate,self). form_valid(form)

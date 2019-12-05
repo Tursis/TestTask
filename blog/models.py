@@ -34,3 +34,17 @@ class BlogComment(models.Model):
 	description = models.TextField(max_length=400, help_text='Enter your comment here')
 	blog = models.ForeignKey(Blog, on_delete=models.SET_NULL, null=True)
 	pub_date = models.DateTimeField('date published')
+
+	class Meta:
+		ordering = ['pub_date']
+
+	def __str__(self):
+		"""
+		String for representing the Model object.
+		"""
+		len_title = 75
+		if len(self.description) > len_title:
+			titlestring = self.description[:len_title] + '...'
+		else:
+			titlestring = self.description
+		return titlestring
