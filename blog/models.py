@@ -20,7 +20,7 @@ class BlogAuthor(models.Model):
 class Blog(models.Model):
 	name = models.CharField(max_length=200, help_text="Enter your name blog here.")
 	author = models.ForeignKey(BlogAuthor, on_delete=models.SET_NULL, null=True)
-	description = models.TextField(max_length=400, help_text="Enter your blog tex here.")
+	description = models.TextField(max_length=400, help_text="Enter your blog text here.")
 	pub_date = models.DateTimeField('date published')
 
 	def __str__(self):
@@ -28,3 +28,9 @@ class Blog(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('blog:blog-detail', args=[str(self.id)])
+
+class BlogComment(models.Model):
+	author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	description = models.TextField(max_length=400, help_text='Enter your comment here')
+	blog = models.ForeignKey(Blog, on_delete=models.SET_NULL, null=True)
+	pub_date = models.DateTimeField('date published')
