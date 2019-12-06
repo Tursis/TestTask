@@ -10,11 +10,11 @@ def index(request):
 	return render(request, 'index.html')
 
 class BlogListView(generic.ListView):
-	template_name = 'blog/blog_list.html'
+
 	model = Blog
 
 class BloggerListView(generic.ListView):
-	template_name = 'blog/blogauthor_list.html'
+
 	model = BlogAuthor
 
 
@@ -40,7 +40,9 @@ class BloggersDetailView(generic.ListView):
 		return  context
 
 class BlogCommenetCreate(CreateView):
+	template_name = 'blog/blogcomment.html'
 	model = BlogComment
+	fields = ['description',]
 
 	def get_context_data(self, **kwargs):
 		context = super(BlogCommenetCreate, self).get_context_data(**kwargs)
@@ -50,3 +52,9 @@ class BlogCommenetCreate(CreateView):
 		form.instance.author = self.request.user
 		form.instance.blog = get_object_or_404(Blog, pk = self.kwargs['pk'])
 		return super(BlogCommenetCreate,self). form_valid(form)
+
+	def get_success_url(self):
+		"""
+		After posting comment return to associated blog.
+		"""
+		return reverse('blog-detail', kwargs={'pk': self.kwargs['pk'], })
