@@ -4,6 +4,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import BlogAuthor, Blog, BlogComment
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 def index(request):
 
@@ -39,14 +40,15 @@ class BloggersDetailView(generic.ListView):
 		context['blogger'] = get_object_or_404(BlogAuthor, pk = self.kwargs['pk'])
 		return  context
 
-class BlogCommenetCreate(CreateView):
+class BlogCommenetCreate(LoginRequiredMixin, CreateView):
 	template_name = 'blog/blogcomment.html'
 	model = BlogComment
 	fields = ['description',]
 
 	def get_context_data(self, **kwargs):
 		context = super(BlogCommenetCreate, self).get_context_data(**kwargs)
-		context['blogcomment'] = get_object_or_404(Blog, pk = self.kwargs['pk'])
+		context['blog'] = get_object_or_404(Blog, pk = self.kwargs['pk'])
+		return context
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user
@@ -57,4 +59,4 @@ class BlogCommenetCreate(CreateView):
 		"""
 		After posting comment return to associated blog.
 		"""
-		return reverse('blog-detail', kwargs={'pk': self.kwargs['pk'], })
+		return reverse('blog:blog-detail', kwargs={'pk': self.kwargs['pk'], })
