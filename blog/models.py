@@ -33,7 +33,7 @@ class BlogComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     description = models.TextField(max_length=400, help_text='Enter your comment here')
     blog = models.ForeignKey(Blog, on_delete=models.SET_NULL, null=True)
-    pub_date = models.DateTimeField('date published', null=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['pub_date']
@@ -48,4 +48,3 @@ class BlogComment(models.Model):
         else:
             titlestring = self.description
         return titlestring
-
