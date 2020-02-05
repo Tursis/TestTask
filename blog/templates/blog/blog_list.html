@@ -4,7 +4,7 @@
 	{% if blog_list %}
 	<ul>
 		{% for blog in blog_list %}
-			<li><a href={{ blog.get_absolute_url }}>{{ blog.name }} </a> {{ blog.pub_date }} —
+			<li><a href={{ blog.get_absolute_url }}>{{ blog.name }} </a> {{ blog.pub_date|date:'Y-m-d'  }} —
 				<a href="{% url 'blog:bloggers-detail' blog.pk%}"> {{blog.author }}</a></li>
 		{% endfor %}
 	</ul>
